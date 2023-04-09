@@ -1,6 +1,8 @@
 package com.adb.prog.repository;
 
 import com.adb.prog.model.Movie;
+import org.neo4j.driver.Driver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 
@@ -19,4 +21,6 @@ public interface MovieRepository extends Neo4jRepository<Movie, Long> {
     Optional <List<Movie>> findByTitle(String title);
 
     void deleteByTitle(String title);
+
+    
 }

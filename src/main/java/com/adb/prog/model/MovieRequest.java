@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @Data
@@ -21,7 +24,7 @@ public class MovieRequest {
 
     private String year;
 
-    private Integer runtime;
+    private String runtime;
 
     private String rating;
 
@@ -29,4 +32,9 @@ public class MovieRequest {
 
     private Integer revenue;
 
+    private List<String> actor;
+
+    private List<String> director;
+
+    private List<String> genre;
 }
