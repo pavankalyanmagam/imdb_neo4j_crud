@@ -12,7 +12,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/imdb")
 public class IMDBController {
 
     @Autowired
@@ -23,13 +22,13 @@ public class IMDBController {
     private Neo4jTemplate neo4jTemplate;
 
     // 1.	Insert the new movie information.
-    @PostMapping("/movies")
+    @PostMapping("/imdb/movies")
     public Movie createMovie(@RequestBody Movie movieDetails) {
         return movieRepository.save(movieDetails);
     }
 
     // 2. Update the movie information using title. (By update only title, description, and rating)
-    @PutMapping("/movies/{title}")
+    @PutMapping("/imdb/movies/{title}")
     public Movie updateMovie(@PathVariable String title, @RequestBody Movie movie) {
         Optional<List<Movie>> optionalMovie = movieRepository.findByTitle(title);
         if (optionalMovie.isPresent() && !optionalMovie.get().isEmpty()) {
@@ -47,7 +46,7 @@ public class IMDBController {
     }
 
     // 3.Delete the movie information using title.
-    @DeleteMapping("/movies/{title}")
+    @DeleteMapping("/imdb/movies/{title}")
     public ResponseEntity<String> deleteMovie(@PathVariable("title")  String title) {
         Optional<List<Movie>> optionalMovie = movieRepository.findByTitle(title);
         if (optionalMovie.isPresent() && !optionalMovie.get().isEmpty()) {
@@ -61,13 +60,13 @@ public class IMDBController {
 
 
     // 4.Retrieve all the movies in database.
-    @GetMapping("/movies")
+    @GetMapping("/imdb/movies")
     public List<Movie> getMovies(){
        return movieRepository.findAll();
     }
 
     //5.	Display the movie’s details includes actors, directors and genres using title.
-    @GetMapping("/movies/{title}")
+    @GetMapping("/imdb/movies/{title}")
     public Optional<List<MovieDetails>> getMovieByTitle(@PathVariable String title) {
         Optional<List<Movie>> byTitle = movieRepository.findByTitle(title);
         Optional<List<MovieDetails>> movieDetailsList = byTitle.map(movies -> movies.stream().map(this::mapToMovieDetails).collect(Collectors.toList()));
